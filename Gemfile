@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby RUBY_VERSION
 
-gem "decidim", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "0.18-merge"
+gem "decidim", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "fix/accessibility"
 # gem "decidim", path: "../decidim"
 # gem "decidim-map", path: "../decidim-map"
 
@@ -33,7 +33,7 @@ gem "letter_opener_web", "~> 1.3"
 group :development, :test do
   gem "byebug", "~> 10.0", platform: :mri
 
-  gem "decidim-dev", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "0.18-merge"
+  gem "decidim-dev", git: "https://github.com/OpenSourcePolitics/decidim.git", branch: "fix/accessibility"
   # gem "decidim-dev", path: "../decidim"
 end
 
