@@ -62,7 +62,23 @@ Rails.application.configure do
       username: ENV["MEMCACHEDCLOUD_USERNAME"], password: ENV["MEMCACHEDCLOUD_PASSWORD"]
     }
   else
-    config.cache_store = :mem_cache_store
+    # config.action_controller.session_store = :redis_cache_store
+    config.session_store = :redis_cache_store
+    cache_servers = ENV["REDIS_URL"] || "redis://localhost:6379/1"
+    config.cache_store = :redis_cache_store, { url: cache_servers,
+      connect_timeout:    30,  # Defaults to 20 seconds
+      read_timeout:       0.2, # Defaults to 1 second
+      write_timeout:      0.2, # Defaults to 1 second
+      reconnect_attempts: 1,   # Defaults to 0
+
+      error_handler: -> (method:, returning:, exception:) {
+        if Rails.application.secrets.dig(:sentry, :enabled)
+          # Report errors to Sentry as warnings
+          Raven.capture_exception exception, level: 'warning',
+            tags: { method: method, returning: returning }
+        end
+      }
+    }
   end
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
@@ -83,17 +99,17 @@ Rails.application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    :address        => Rails.application.secrets.smtp_address,
-    :port           => Rails.application.secrets.smtp_port,
-    :authentication => Rails.application.secrets.smtp_authentication,
-    :user_name      => Rails.application.secrets.smtp_username,
-    :password       => Rails.application.secrets.smtp_password,
-    :domain         => Rails.application.secrets.smtp_domain,
-    :enable_starttls_auto => Rails.application.secrets.smtp_starttls_auto,
-    :openssl_verify_mode => 'none'
-  }
+  #  config.action_mailer.delivery_method = :smtp
+  #config.action_mailer.smtp_settings = {
+  #  :address        => Rails.application.secrets.smtp_address,
+  #  :port           => Rails.application.secrets.smtp_port,
+  #  :authentication => :plain,
+  #  :user_name      => Rails.application.secrets.smtp_username,
+  #  :password       => Rails.application.secrets.smtp_password,
+  #  :domain         => Rails.application.secrets.smtp_domain,
+  #  :enable_starttls_auto => Rails.application.secrets.smtp_starttls_auto,
+  #  :openssl_verify_mode => 'none'
+  #}
 
   if Rails.application.secrets.sendgrid
     config.action_mailer.default_options = {
