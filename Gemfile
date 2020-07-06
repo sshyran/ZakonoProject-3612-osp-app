@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby RUBY_VERSION
 
-gem "decidim", path: "~/OSP/decidim-bcn/decidim"
+gem "decidim", git: "https://github.com/OpenSourcePolitics/decidim", branch: "0.18-merge"
 # gem "decidim", path: "../decidim"
 # gem "decidim-map", path: "../decidim-map"
 
@@ -18,7 +18,7 @@ gem "decidim", path: "~/OSP/decidim-bcn/decidim"
 
 gem "bootsnap", "~> 1.3"
 
-gem "puma", "~> 4.3"
+gem "puma", "~> 3.11"
 gem "uglifier", "~> 4.1"
 
 gem "faker", "~> 1.8"
@@ -27,9 +27,9 @@ gem "ruby-progressbar"
 gem 'sentry-raven'
 
 group :development, :test do
-  gem "byebug", "~> 11.0", platform: :mri
+  gem "byebug", "~> 10.0", platform: :mri
 
-  gem "decidim-dev", path: "~/OSP/decidim-bcn/decidim"
+  gem "decidim-dev", git: "https://github.com/OpenSourcePolitics/decidim", branch: "0.18-merge"
   # gem "decidim-dev", path: "../decidim"
 end
 
