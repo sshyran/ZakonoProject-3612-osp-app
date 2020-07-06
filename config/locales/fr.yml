@@ -53,3 +53,7 @@ fr:
         not_found_in_database: "%{authentication_keys} ou mot de passe invalide."
         timeout: Votre session a expiré. Veuillez vous connecter à nouveau pour continuer.
         unauthenticated: Vous devez vous connecter ou vous inscrire avant de continuer.
+  layouts:
+    decidim:
+      footer:
+        download_open_data: Données ouvertes

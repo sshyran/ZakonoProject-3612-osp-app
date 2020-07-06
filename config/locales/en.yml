@@ -35,3 +35,7 @@ en:
     invitations:
       user:
         updated: "Your account was updated succesfully."
+  layouts:
+    decidim:
+      footer:
+        download_open_data: Open data
