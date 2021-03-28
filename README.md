@@ -1,4 +1,5 @@
-# OSP App
+# Технічне рішення до Проєкту ЗУ №3612
+#### OSP App, Original English Transcript:
 
 Citizen Participation and Open Government application.
 
